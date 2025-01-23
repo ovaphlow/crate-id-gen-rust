@@ -19,7 +19,7 @@ impl SnowflakeIdGenerator {
 
     pub fn generate(&mut self) -> i64 {
         let mut timestamp = Self::current_time_millis();
-        
+
         if timestamp < self.last_timestamp {
             panic!("Clock moved backwards. Refusing to generate id");
         }
@@ -42,7 +42,8 @@ impl SnowflakeIdGenerator {
 
     fn current_time_millis() -> i64 {
         let start = SystemTime::now();
-        let since_the_epoch = start.duration_since(UNIX_EPOCH)
+        let since_the_epoch = start
+            .duration_since(UNIX_EPOCH)
             .expect("Time went backwards");
         since_the_epoch.as_millis() as i64
     }
@@ -74,7 +75,10 @@ mod tests {
         generator.last_timestamp = SnowflakeIdGenerator::current_time_millis();
         let id1 = generator.generate();
         let id2 = generator.generate();
-        assert_ne!(id1, id2, "Generated IDs within the same millisecond should be unique");
+        assert_ne!(
+            id1, id2,
+            "Generated IDs within the same millisecond should be unique"
+        );
     }
 
     #[test]

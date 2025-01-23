@@ -1,8 +1,8 @@
 mod ksuid;
 mod snowflake_id;
 
-use std::env;
 use snowflake_id::SnowflakeIdGenerator;
+use std::env;
 
 fn main() {
     let args: Vec<String> = env::args().collect();

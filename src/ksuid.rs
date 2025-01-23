@@ -1,8 +1,8 @@
-use std::time::{SystemTime, UNIX_EPOCH};
-use rand::RngCore;
 use num_bigint::BigUint;
-use num_traits::{Zero, ToPrimitive};
 use num_integer::Integer;
+use num_traits::{ToPrimitive, Zero};
+use rand::RngCore;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 const KSUID_BASE62: &[u8] = b"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -33,7 +33,10 @@ fn generate_random_bytes(length: usize) -> Vec<u8> {
 }
 
 pub fn generate_ksuid() -> String {
-    let timestamp = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs() as u32;
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_secs() as u32;
     let mut timestamp_bytes = [0u8; 4];
     timestamp_bytes.copy_from_slice(&timestamp.to_be_bytes());
 
